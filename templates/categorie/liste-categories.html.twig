@@ -16,6 +16,7 @@
 							<tr class="fw-bold text-primary">
 								<th scope="col" class="text-light">Libellé</th>
 								<th scope="col" class="text-light">Date d'envoi</th>
+									<th scope="col"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -23,6 +24,7 @@
 								<tr class="{{ cycle(['table-primary','table-secondary'], loop.index0) }}">
 									<td>{{ categorie.libelle | capitalize }}</td>
 									<td>{{ categorie.dateEnvoi | date("d-m-Y à H:i:s") }}</td>
+									<td><a href="{{path("app_modifier_categorie",{'id':categorie.id})}}"><i class="bi bi-pen-fill text-dark"></i></a></td>
 								</tr>
 							{% endfor %}
 						</tbody>
