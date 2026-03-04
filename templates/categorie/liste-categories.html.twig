@@ -17,6 +17,8 @@
 								<th scope="col" class="text-light">Libellé</th>
 								<th scope="col" class="text-light">Date d'envoi</th>
 									<th scope="col"></th>
+									<th scope="col"></th>
+									<th scope="col"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -25,10 +27,14 @@
 									<td>{{ categorie.libelle | capitalize }}</td>
 									<td>{{ categorie.dateEnvoi | date("d-m-Y à H:i:s") }}</td>
 									<td><a href="{{path("app_modifier_categorie",{'id':categorie.id})}}"><i class="bi bi-pen-fill text-dark"></i></a></td>
+									<td><ahref="{{path("app_supprimer_categorie",{'id':categorie.id})}}"><i class="bi bi-trash-fill text-dark"></i></a></td>
+									<td>{{ form_widget(form.categories[categorie.id]) }}</td>
 								</tr>
 							{% endfor %}
 						</tbody>
 					</table>
+					{{ form_widget(form.supprimer) }}
+					{{ form_end(form) }}
 				</div>
 			</div>
 		</div>
