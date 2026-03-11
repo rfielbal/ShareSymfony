@@ -14,7 +14,7 @@ use App\Form\SupprimerCategorieType;
 
 final class CategorieController extends AbstractController
 {
-    #[Route('/liste-categories', name: 'liste-categories')]
+    #[Route('/private-liste-categories', name: 'liste-categories')]
     public function categorie(Request $request,CategorieRepository $categorieRepository,EntityManagerInterface $em): Response
     {
         $categories = $categorieRepository->findAll();
@@ -41,7 +41,7 @@ $form->handleRequest($request);
         ]);
     }
 
-    #[Route('/modifier-categorie/{id}', name: 'app_modifier_categorie')]
+    #[Route('/private-modifier-categorie/{id}', name: 'app_modifier_categorie')]
 
     public function modifierCategorie(Categorie $categorie): Response
     {
@@ -60,7 +60,7 @@ $form->handleRequest($request);
             'form' => $form->createView(),
         ]);
     }
-    #[Route('/supprimer-categorie/{id}', name: 'app_supprimer_categorie')]
+    #[Route('/private-supprimer-categorie/{id}', name: 'app_supprimer_categorie')]
     public function supprimerCategorie(Request $request, Categorie $categorie, EntityManagerInterface $em): Response
     {
         if ($categorie != null) {
