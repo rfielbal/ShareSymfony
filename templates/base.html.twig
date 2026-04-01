@@ -42,9 +42,6 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{path('app_mention')}}">Mention légales</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('liste-contacts')}}">Liste des Contacts</a>
-						</li>
 					</ul>
 					<form class="d-flex">
 						<input class="form-control me-sm-2" type="search" placeholder="Search">
@@ -61,6 +58,25 @@
 								</a>
 							</li>
 						{% else %}
+							{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Listes</a>
+									<div class="dropdown-menu">
+										<a class="nav-link" href="{{path('liste-contacts')}}">Liste des contacts</a>
+										<a class="dropdown-item" href="{{path('liste-users')}}">Liste des utilisateurs</a>
+									</div>
+								</li>
+								<li class="nav-item">
+								<a class="nav-link" href="{{path('app_ajout_fichier')}}">Ajouter des fichiers
+								</a>
+							</li>
+								{% if is_granted('ROLE_USER')%}
+									<li class="nav-item">
+										<a class="nav-link" href="{{path('profil-user')}}">Profil
+										</a>
+									</li>
+								{% endif %}
+							{% endif %}
 							<li class="nav-item">
 								<a class="nav-link" href="{{path('app_logout')}}">
 									{{app.user.email}}
