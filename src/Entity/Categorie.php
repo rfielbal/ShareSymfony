@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategorieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
@@ -18,6 +20,17 @@ class Categorie
 
     #[ORM\Column]
     private ?\DateTime $dateEnvoi = null;
+
+    /**
+     * @var Collection<int, Scategorie>
+     */
+    #[ORM\OneToMany(targetEntity: Scategorie::class, mappedBy: 'categorie', orphanRemoval: true)]
+    private Collection $scategories;
+
+    public function __construct()
+    {
+        $this->scategories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +57,36 @@ class Categorie
     public function setDateEnvoi(\DateTime $dateEnvoi): static
     {
         $this->dateEnvoi = $dateEnvoi;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Scategorie>
+     */
+    public function getScategories(): Collection
+    {
+        return $this->scategories;
+    }
+
+    public function addScategory(Scategorie $scategory): static
+    {
+        if (!$this->scategories->contains($scategory)) {
+            $this->scategories->add($scategory);
+            $scategory->setCategorie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeScategory(Scategorie $scategory): static
+    {
+        if ($this->scategories->removeElement($scategory)) {
+            // set the owning side to null (unless already changed)
+            if ($scategory->getCategorie() === $this) {
+                $scategory->setCategorie(null);
+            }
+        }
 
         return $this;
     }

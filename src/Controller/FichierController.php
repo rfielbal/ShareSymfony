@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Fichier;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\FichierType;
+use App\Repository\FichierRepository;
 
 
 final class FichierController extends AbstractController
@@ -29,6 +30,14 @@ final class FichierController extends AbstractController
         }
         return $this->render('fichier/ajout-fichier.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+    #[Route('/private-liste-fichier', name: 'app_liste_fichier')]
+    public function listefichier(FichierRepository $fichierRepository): Response
+    {
+        $fichier = $fichierRepository->findAll();
+        return $this->render('fichier/liste-fichier.html.twig', [
+            'fichier' => $fichier,
         ]);
     }
 }
