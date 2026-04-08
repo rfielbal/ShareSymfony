@@ -28,9 +28,10 @@
 									<td>{{fichier.dateEnvoi | date("d-m-Y")}}</td>
 									<td>{{fichier.extension | capitalize }}</td>
 									<td>{{fichier.taille | lower}}</td>
-									<td>{{fichier.user.nom}} {{fichier.user.prenom}}</td>
+									<td>{{fichier.user.nom}}
+										{{fichier.user.prenom}}</td>
 
-									
+
 								</tr>
 							{% endfor %}
 						</tbody>
@@ -41,3 +42,5 @@
 		</div>
 	</div>
 {% endblock %}
+
+

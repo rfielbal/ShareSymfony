@@ -17,12 +17,12 @@ class AjoutScategorieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle', TextType::class, ['attr' => ['class' => 'form-control'], 'label_attr' => ['class' => 'fw-bold']])
+            ->add('libelle', TextType::class, ['attr' => ['class' => 'form-control'], 'label_attr' => ['class' => 'fw-bold text-light']])
             ->add('numero', IntegerType::class, ['attr' => ['class' => 'form-control'], 'label_attr' =>
-                ['class' => 'fw-bold']])
+                ['class' => 'fw-bold text-light']])
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
-                'attr' => ['class' => 'form-control'], 'label_attr' => ['class' => 'fw-bold'],
+                'attr' => ['class' => 'form-control'], 'label_attr' => ['class' => 'fw-bold text-light'],
                 'choice_label' => function ($categorie) {
                     return $categorie->getId() . ' - ' . $categorie->getLibelle();
                 },
@@ -33,7 +33,7 @@ class AjoutScategorieType extends AbstractType
                 },
             ])
             ->add('envoyer', SubmitType::class, ['attr' => ['class' => 'btn bg-primary text-white m-4'],
-                'row_attr' => ['class' => 'text-center']])
+                'row_attr' => ['class' => 'text-center text-light']])
         ;
     }
 

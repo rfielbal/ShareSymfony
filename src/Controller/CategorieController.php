@@ -14,7 +14,7 @@ use App\Form\SupprimerCategorieType;
 
 final class CategorieController extends AbstractController
 {
-    #[Route('/private-liste-categories', name: 'liste-categories')]
+    #[Route('/private-liste-categories', name: 'app_liste-categories')]
     public function categorie(Request $request,CategorieRepository $categorieRepository,EntityManagerInterface $em): Response
     {
         $categories = $categorieRepository->findAll();
@@ -68,6 +68,6 @@ $form->handleRequest($request);
             $em->flush();
             $this->addFlash('notice', 'Catégorie supprimée');
         }
-        return $this->redirectToRoute('app_liste_categories');
+        return $this->redirectToRoute('liste-categories');
     }
 }
