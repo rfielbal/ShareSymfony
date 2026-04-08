@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Scategorie;
 use App\Form\ModifierScategorieType;
-use App\Form\SupprimerCategorieType;
+use App\Form\SupprimerScategorieType;
 use App\Form\AjoutScategorieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,10 +26,10 @@ class ScategorieController extends AbstractController
                     $em->flush();
                 } catch (\RuntimeException $e) {
                     $this->addFlash('notice', $e->getMessage());
-                    return $this->redirectToRoute('app_ajout_scategorie');
+                    return $this->redirectToRoute('app_liste_categories');
                 }
                 $this->addFlash('notice', 'Sous catégorie insérée');
-                return $this->redirectToRoute('app_ajout_scategorie');
+                return $this->redirectToRoute('app_liste_categories');
             }
         }
         return $this->render('scategorie/ajout-scategorie.html.twig', [
@@ -48,20 +48,20 @@ class ScategorieController extends AbstractController
 				$em->persist($scategorie);
 				$em->flush();
 				$this->addFlash('notice','Sous-catégorie modifiée');
-				return $this->redirectToRoute('app_liste_scategories');
+				return $this->redirectToRoute('app_liste_categories');
 			}
 		}		
         return $this->render('scategorie/modifier-scategorie.html.twig', [
 		'form' => $form->createView()
         ]);
     }
-    #[Route('/private-supprimer-categorie/{id}', name: 'app_supprimer_categorie')]
-	public function supprimerCategorie(Request $request,Categorie $categorie,EntityManagerInterface $em): Response
+    #[Route('/private-supprimer-scategorie/{id}', name: 'app_supprimer_scategorie')]
+	public function supprimerCategorie(Request $request,Scategorie $scategorie,EntityManagerInterface $em): Response
 	{
-		if($categorie!=null){
-			$em->remove($categorie);
+		if($scategorie!=null){
+			$em->remove($scategorie);
 			$em->flush();
-			$this->addFlash('notice','Catégorie supprimée');
+			$this->addFlash('notice','Sous-catégorie supprimée');
 	}
 	return $this->redirectToRoute('app_liste_categories');
 }

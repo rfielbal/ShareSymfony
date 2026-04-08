@@ -25,7 +25,7 @@
 								<tr class="{{ cycle(['table-primary', 'table-secondary'], loop.index0) }}">
 									<td>{{ fichier.nomOriginal | capitalize }}</td>
 									<td>{{fichier.nomServeur | capitalize }}</td>
-									<td>{{fichier.dateEnvoi | date("d-m-Y")}}</td>
+									<td>{{fichier.dateEnvoie | date("d-m-Y")}}</td>
 									<td>{{fichier.extension | capitalize }}</td>
 									<td>{{fichier.taille | lower}}</td>
 									<td>{{fichier.user.nom}}

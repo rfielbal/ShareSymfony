@@ -15,15 +15,15 @@ class SupprimerScategorieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('libelle', ['attr' => ['class' => 'form-control'], 'label_attr' => ['class' => 'fw-bold text-light']])
-            ->add('numero', ['attr' => ['class' => 'form-control'], 'label_attr' => ['class' => 'fw-bold text-light']])
-            ->add('categorie', EntityType::class, ['attr' => ['class' => 'btn bg-primary text-white m-4'], 'row_attr' => ['class' => 'text-center text-light'],
-                'class' => Categorie::class,
-                'choice_label' => 'id',
-            ])
-            ->add('supprimer', SubmitType::class, ['attr' => ['class' => 'btn bg-primary text-white m-4'], 'row_attr' => ['class' => 'text-center text-light']])
-        ;
+        $builder->add('scategories', EntityType::class, [
+			'class' => Scategorie::class,
+			'choices' => $options['scategories'],
+			'choice_label' => 'libelle',
+			'expanded' => true,
+			'multiple' => true,
+			'label' => false, 'mapped' => false])
+			->add('supprimer', SubmitType::class, ['attr' => ['class'=> 'btn bg-primary text-white m-4' ],'row_attr' => ['class' => 'text-center text-light'],])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
