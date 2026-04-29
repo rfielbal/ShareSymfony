@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Fichier;
 use App\Entity\User;
+use App\Entity\Scategorie;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -37,6 +38,13 @@ class FichierType extends AbstractType
                     ->addOrderBy('u.prenom','ASC');
                 },
             ])
+            ->add('scategories', EntityType::class, [
+                'class' => Scategorie::class,
+                'choices' => $options['scategories'],
+                'choice_label' => 'libelle',
+                'expanded' => true,
+                'multiple' => true,
+                'label' => false, 'mapped' => false])
             ->add('envoyer', SubmitType::class, ['attr' => ['class' => 'btn bg-primary text-white m-4'], 'row_attr' => ['class' => 'text-center text-light']])
         ;
     }
@@ -45,6 +53,7 @@ class FichierType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Fichier::class, 
+            'scategories' => []
         ]);
     }
 }

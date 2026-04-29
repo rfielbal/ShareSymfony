@@ -25,7 +25,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
-            $user->setDateAjout(new \Datetime());
+            $user->setDateAjout(new \Datetime('now', new \DatetimeZone('Europe/Paris')));
 
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));

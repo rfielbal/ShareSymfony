@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FichierRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FichierRepository::class)]
@@ -31,6 +33,17 @@ class Fichier
 
     #[ORM\Column]
     private ?int $taille = null;
+
+    /**
+     * @var Collection<int, Scategorie>
+     */
+    #[ORM\ManyToMany(targetEntity: Scategorie::class, inversedBy: 'fichiers')]
+    private Collection $scategories;
+
+    public function __construct()
+    {
+        $this->scategories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +118,30 @@ class Fichier
     public function setTaille(int $taille): static
     {
         $this->taille = $taille;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Scategorie>
+     */
+    public function getScategories(): Collection
+    {
+        return $this->scategories;
+    }
+
+    public function addScategory(Scategorie $scategory): static
+    {
+        if (!$this->scategories->contains($scategory)) {
+            $this->scategories->add($scategory);
+        }
+
+        return $this;
+    }
+
+    public function removeScategory(Scategorie $scategory): static
+    {
+        $this->scategories->removeElement($scategory);
 
         return $this;
     }
