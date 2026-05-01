@@ -9,7 +9,7 @@ use App\Repository\UserRepository;
 
 final class UserController extends AbstractController
 {
-    #[Route('/mod-liste-users', name: 'liste-users')]
+    #[Route('/private-liste-users', name: 'liste-users')]
     public function listeUsers(UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
@@ -18,12 +18,18 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/mod-profil-users', name: 'profil-user')]
-    public function listeProfil(UserRepository $userRepository): Response
+    #[Route('/private-profil-users', name: 'profil-user', requirements: ["id" => "\d+"])]
+    public function telechargementFichierUser(Fichier $fichier)
     {
-        $users = $userRepository->findAll();
-        return $this->render('user/profil-user.html.twig', [
-            'users' => $users
-        ]);
+        if ($fichier == null) {
+            return $this->redirectToRoute('app_profil');
+        } else {
+            if ($fichier->getUser()!== $this->getUser()) {
+                $this->addFlash('notice', 'Vous n\'êtes pas le propriétaire de ce fichier');
+                return $this->redirectToRoute('app_profil');
+            }
+            return $this->file($this->getParameter('file_directory') . '/' . $fichier->getNomServeur(),
+                $fichier->getNomOriginal());
+        }
     }
 }
