@@ -24,7 +24,7 @@
 				</div>
 				<div class="row border-bottom py-2">
 					<div class="col-6 text-end fw-bold">Date d'inscription:</div>
-					<div class="col-6 text-start">{{ app.user.dateEnvoi| date('d-m-Y') }}</div>
+					<div class="col-6 text-start">{{ app.user.dateAjout| date('d-m-Y') }}</div>
 				</div>
 				<div class="row border-bottom py-2">
 					<div class="col-6 text-end fw-bold">Rôle:</div>
@@ -48,7 +48,7 @@
 					<div class="row border-bottom py-2">
 						<div class="col-6 text-end fw-bold">Fichier{{ loop.index }}:</div>
 						<div class="col-6 text-start">
-							<a href="{{path('app_telechargement_fichier', {'id':f.id})}}" style="text-decoration: none">{{f.nomOriginal}}</a>
+							<a href="{{path('app_telechargement_fichier_user', {'id':f.id})}}" style="text-decoration: none">{{f.nomOriginal}}</a>
 							{% for s in f.scategories %}
 								<li>{{s.numero}}
 									{{s.libelle | capitalize}}</li>
@@ -69,15 +69,15 @@
 					{% if id != scategorie.categorie.id %}
 						{% set id = scategorie.categorie.id %}
 						<tr>
-							<td class="text-primary fw-bold">{{scategorie.categorie.id}}
+							<td class="text-light fw-bold">{{scategorie.categorie.id}}
 								{{scategorie.categorie.libelle}}
 							</td>
 							<td></td>
 						</tr>
 					{% endif %}
-					<td class="text-primary">-{{scategorie.numero}}
+					<td class="text-light">-{{scategorie.numero}}
 						{{scategorie.libelle}}</td>
-					<td class="text-primary">{{ form_widget(form.scategories[scategorie.id]) }}</td>
+					<td class="text-light">{{ form_widget(form.scategories[scategorie.id]) }}</td>
 				</tr>
 			{% endfor %}
 		</table>
