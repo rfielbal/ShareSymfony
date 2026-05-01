@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-{{parent()}}Liste des fichiers par utilisateur
-	{% endblock %}
+	{{parent()}}Liste des fichiers par utilisateur
+{% endblock %}
 {% block body %}
 	<div class="container-fluid">
 		<h1 class="text-center text-primary mt-4 pt-4 fw-bold text-white">
@@ -22,12 +22,13 @@
 											<fieldset>
 												<legend>
 													<i class="bi bi-filetype-pdf"></i>
-													{{f.nomOriginal}}</legend>
+													<a href="{{path('app_telechargement_fichier', {'id':f.id})}}" style="text-decoration: none">{{f.nomOriginal}}</a>
+												</legend>
 												<ul style="list-style: none">
 													{% for s in f.scategories %}
-														<li>{{s.numero}})
-														{{s.libelle | capitalize}}</li>
-														{% endfor %}
+														<li>{{s.numero}}
+															{{s.libelle | capitalize}}</li>
+													{% endfor %}
 												</ul>
 											</fieldset>
 										</td>
